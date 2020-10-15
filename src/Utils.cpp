@@ -97,6 +97,7 @@ urdf::Rotation fromEigen(const Eigen::Quaterniond& rotation) {
 std::string convert_to_string(double x) {
     std::ostringstream streamObj;
     streamObj.precision(std::numeric_limits<double>::digits10);
+    streamObj.precision(7);
     streamObj << std::fixed << x;
     std::string str = streamObj.str();
     str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
