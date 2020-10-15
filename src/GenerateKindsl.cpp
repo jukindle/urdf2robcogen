@@ -8,16 +8,10 @@
 
 #include <sstream>
 
+
 std::string print_inertia_params(const std::string& linkName, const LinkInfo& link) {
-  std::ostringstream out, mass, xx, yy, zz, xy, xz, yz;
-  out.precision(std::numeric_limits<double>::digits10);
-  mass.precision(std::numeric_limits<double>::digits10);
-  xx.precision(std::numeric_limits<double>::digits10);
-  yy.precision(std::numeric_limits<double>::digits10);
-  zz.precision(std::numeric_limits<double>::digits10);
-  xy.precision(std::numeric_limits<double>::digits10);
-  yz.precision(std::numeric_limits<double>::digits10);
-  xz.precision(std::numeric_limits<double>::digits10);
+  std::ostringstream out;
+  std::string mass, xx, yy, zz, xy, xz, yz;
 
   out << "\tinertia_params {" << std::endl;
 
@@ -27,23 +21,23 @@ std::string print_inertia_params(const std::string& linkName, const LinkInfo& li
     return out.str();
   }
 
-  mass << std::fixed << link.inertia_->m_;
-  xx << std::fixed << link.inertia_->I_(0, 0);
-  yy << std::fixed << link.inertia_->I_(1, 1);
-  zz << std::fixed << link.inertia_->I_(2, 2);
-  xy << std::fixed << -link.inertia_->I_(0, 1);
-  xz << std::fixed << -link.inertia_->I_(0, 2);
-  yz << std::fixed << -link.inertia_->I_(1, 2);
+  mass = convert_to_string(link.inertia_->m_);
+  xx = convert_to_string(link.inertia_->I_(0, 0));
+  yy = convert_to_string(link.inertia_->I_(1, 1));
+  zz = convert_to_string(link.inertia_->I_(2, 2));
+  xy = convert_to_string(-link.inertia_->I_(0, 1));
+  xz = convert_to_string(-link.inertia_->I_(0, 2));
+  yz = convert_to_string(-link.inertia_->I_(1, 2));
 
-  out << "\t\tmass = " << mass.str() << std::endl
+  out << "\t\tmass = " << mass << std::endl
       << "\t\tCoM = "
       << "(0.0, 0.0, 0.0)" << std::endl
-      << "\t\tIx = " << std::fixed << xx.str() << std::endl
-      << "\t\tIy = " << std::fixed << yy.str() << std::endl
-      << "\t\tIz = " << std::fixed << zz.str() << std::endl
-      << "\t\tIxy = " << std::fixed << xy.str() << std::endl
-      << "\t\tIxz = " << std::fixed << xz.str() << std::endl
-      << "\t\tIyz = " << std::fixed << yz.str() << std::endl
+      << "\t\tIx = " << xx << std::endl
+      << "\t\tIy = " << yy << std::endl
+      << "\t\tIz = " << zz << std::endl
+      << "\t\tIxy = " << xy << std::endl
+      << "\t\tIxz = " << xz << std::endl
+      << "\t\tIyz = " << yz << std::endl
       << "\t\tref_frame = "
       << "fr_" << linkName << "_COM" << std::endl
       << "\t}" << std::endl;

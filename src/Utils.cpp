@@ -94,6 +94,17 @@ urdf::Rotation fromEigen(const Eigen::Quaterniond& rotation) {
   return {rotation.x(), rotation.y(), rotation.z(), rotation.w()};
 }
 
+std::string convert_to_string(double x) {
+    std::ostringstream streamObj;
+    streamObj.precision(std::numeric_limits<double>::digits10);
+    streamObj << std::fixed << x;
+    std::string str = streamObj.str();
+    str.erase ( str.find_last_not_of('0') + 1, std::string::npos );
+    if (str.back() == '.')
+        str.append("0");
+    return str;
+}
+
 std::string printVector(const urdf::Vector3& vector) {
   constexpr double epsilon = 1e-6;
 
@@ -111,10 +122,7 @@ std::string printVector(const urdf::Vector3& vector) {
     } else if (std::abs(in + M_PI_4) < epsilon) {
       return std::string{"-PI/4.0"};
     } else {
-      std::ostringstream value_as_string;
-      value_as_string.precision(std::numeric_limits<double>::digits10);
-      value_as_string << std::fixed << in;
-      return value_as_string.str();
+      return convert_to_string(in);
     }
   };
 

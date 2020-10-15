@@ -24,6 +24,8 @@ urdf::Vector3 fromEigen(const Eigen::Vector3d& vec);
 Eigen::Quaterniond toEigen(const urdf::Rotation& rotation);
 urdf::Rotation fromEigen(const Eigen::Quaterniond& rotation);
 
+std::string convert_to_string(double x);
+
 std::string printVector(const urdf::Vector3& vector);
 
 urdf::Vector3 rotationXyz(const urdf::Rotation& rot_quaternion);
