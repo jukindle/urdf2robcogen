@@ -107,7 +107,7 @@ std::string convert_to_string(double x) {
 }
 
 std::string printVector(const urdf::Vector3& vector) {
-  constexpr double epsilon = 1e-6;
+  constexpr double epsilon = 2e-5;
 
   auto numberAsString = [](const double in) {
     if (std::abs(in - M_PI) < epsilon) {
